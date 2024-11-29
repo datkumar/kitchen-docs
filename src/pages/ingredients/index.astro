@@ -1,0 +1,22 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const ingredientEntries = await getCollection("ingredients");
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Ingredients">
+  <h2 class="font-title text-3xl">Ingredient reference</h2>
+  <ul class="font-serif text-xl">
+    {
+      ingredientEntries.map((entry) => (
+        <li>
+          <a href={`${baseUrl}/ingredients/${entry.data.slug}`}>
+            {entry.data.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const ingredientEntries = await getCollection("ingredients");
+  return ingredientEntries.map((entry) => ({
+    params: { slug: entry.data.name.toLowerCase() },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+
+<BaseLayout title={entry.data.name}>
+  <h1 class="text-2xl font-title">{entry.data.name}</h1>
+  <br />
+  Category: {entry.data.category.toUpperCase()}
+  <br />
+  <div class="font-serif">
+    Local Names: {entry.data.localNames.join(", ")}
+  </div>
+</BaseLayout>
