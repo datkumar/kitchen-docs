@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="404: Not Found">
+  <div class="h-dvh mx-auto">
+    <h1 class="font-sans font-bold text-2xl">Oops, page not found 🤷‍♂️</h1>
+    Would you like to <a href={baseUrl} class="font-semibold text-indigo-600"
+      >return to homepage</a
+    >
+    ?
+  </div>
+</BaseLayout>

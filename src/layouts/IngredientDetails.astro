@@ -1,0 +1,62 @@
+---
+import type { IngredientDetails } from "../content.config";
+import { ingredientCategories } from "../utils/data";
+
+interface Props {
+  ingredient: IngredientDetails;
+}
+
+const { ingredient } = Astro.props;
+
+const tableHeadStyles =
+  "border-slate-300 px-3 py-2 font-normal text-right text-md text-emerald-800";
+const tableDataStyles =
+  "border-slate-300 px-4 py-2 font-serif font-medium text-md";
+---
+
+<div class="">
+  <h1 class="text-6xl font-title">{ingredient.name}</h1>
+  <br />
+  <table class="table-auto bg-slate-100 bg-opacity-40 rounded-md">
+    <tr>
+      <th class={`${tableHeadStyles} border-r-2 border-b-2`}>English name</th>
+      <td class={`${tableDataStyles} border-l-2 border-b-2`}>
+        {ingredient.name}
+      </td>
+    </tr>
+    <tr>
+      <th class={`${tableHeadStyles} border-r-2 border-b-2`}>Local names</th>
+      <td class={`${tableDataStyles} border-l-2 border-b-2`}>
+        {ingredient.localNames.join(", ")}
+      </td>
+    </tr>
+    <tr>
+      <th class={`${tableHeadStyles} border-r-2 border-b-2`}>Category</th>
+      <td class={`${tableDataStyles} border-l-2 border-b-2 text-sm`}
+        >{ingredientCategories[ingredient.category].title}{
+          ingredientCategories[ingredient.category].icon
+        }
+      </td>
+    </tr>
+    <tr>
+      <th class={`${tableHeadStyles} border-r-2 border-b-2`}>Scientific name</th
+      >
+      <td
+        class={`${tableDataStyles} text-sm text-md border-l-2 border-b-2 italic font-mono`}
+        >{ingredient.scientificName}</td
+      >
+    </tr>
+    <tr>
+      <th class={`${tableHeadStyles} border-r-2 border-b-2`}>Image</th>
+      <td
+        class={`${tableDataStyles} border-l-2 border-b-2 h-[300px] max-w-[500px]`}
+      >
+        <img
+          src={ingredient.image}
+          alt={`${ingredient.name} image`}
+          class="py-3 object-cover w-full h-full"
+        />
+      </td>
+    </tr>
+  </table>
+</div>

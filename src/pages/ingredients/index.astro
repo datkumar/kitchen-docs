@@ -1,22 +1,29 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import IngredientCard from "../../layouts/IngredientCard.astro";
+import { compareStrings } from "../../utils/helper-functions";
 
 const ingredientEntries = await getCollection("ingredients");
 const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="Ingredients">
-  <h2 class="font-title text-3xl">Ingredient reference</h2>
-  <ul class="font-serif text-xl">
+  <h2 class="font-title text-4xl py-2">Ingredient reference</h2>
+  <br />
+  <ul
+    class="font-serif text-xl grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3"
+  >
     {
-      ingredientEntries.map((entry) => (
-        <li>
-          <a href={`${baseUrl}/ingredients/${entry.data.slug}`}>
-            {entry.data.name}
-          </a>
-        </li>
-      ))
+      ingredientEntries
+        .sort((a, b) => compareStrings(a.id, b.id))
+        .map((entry) => (
+          <li>
+            <a href={`${baseUrl}/ingredients/${entry.id}`}>
+              <IngredientCard ingredient={entry.data} />
+            </a>
+          </li>
+        ))
     }
   </ul>
 </BaseLayout>

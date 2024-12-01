@@ -1,0 +1,18 @@
+---
+import type { IngredientDetails } from "../content.config";
+// import { ingredientCategories } from "../utils/data";
+
+interface Props {
+  ingredient: IngredientDetails;
+}
+
+const { ingredient } = Astro.props;
+---
+
+<div class="h-32 w-40 rounded-lg overflow-hidden">
+  <img
+    src={ingredient.image}
+    alt={ingredient.name}
+    class="object-cover h-full w-full object-center"
+  />
+</div>
